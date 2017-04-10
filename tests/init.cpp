@@ -1,4 +1,4 @@
-#include <matrix.hpp>
+#include <BinaryTree.hpp>
 #include <catch.hpp>
 #include <iostream>
 
