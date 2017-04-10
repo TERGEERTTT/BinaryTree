@@ -1,4 +1,4 @@
-#include "matrix.hpp"
+#include "BinaryTree.hpp"
 
 template<typename T>
 BinaryTree<T>::BinaryTree() :data(0), left{ nullptr }, right{ nullptr }
