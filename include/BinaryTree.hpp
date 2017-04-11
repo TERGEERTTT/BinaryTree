@@ -22,9 +22,9 @@ private:
 public:
 	BinaryTree();
 	~BinaryTree();
-	int data()const;
 	void add_node(const T&, Node<T>*&);
 	Node<T> *search(const T&);
-	void write_in(const string)const;
-	void ost(std::ostream&, Node<T>*);
+	void reading(const std::string);
+	void outfile(Node<T>*, ostream&)const;
+	void writing(const std::string);
 };
