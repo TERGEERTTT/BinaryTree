@@ -1,14 +1,8 @@
 #include "BinaryTree.hpp"
 
 template<typename T>
-BinaryTree<T>::BinaryTree() :data(0), left{ nullptr }, right{ nullptr }
+BinaryTree<T>::BinaryTree() :data(0), left{ nullptr }, right{ nullptr }, root{ nullptr }
 {
-}
-
-template<typename T>
-int BinaryTree::data() const
-{
-	return data;
 }
 
 template<typename T>
@@ -41,7 +35,9 @@ void BinaryTree<T>::add_node(const T& data, Node<T> *&MyTree)
 	if (data > MyTree->data)
 	{
 		if (MyTree->right != NULL)
+		{
 			add_node(data, MyTree->right);
+		}
 		else
 		{
 			MyTree->right = new Node;
@@ -74,28 +70,44 @@ Node<T> *search(const T& buff, Node<T> *&MyTree)
 }
 
 template<typename T>
-void BinaryTree<T>::write_in(const std::string filename) const
+bool test(const T& buff)
 {
-	T buff;
-	std::ifstream file_1(filename);
-	while (file_1.eof())
-	{
-		add_node(buff);
-		file_1 >> buff;
-	}
-	file_1.close();
+	Node<T> * node;
+	node = search(buff);
+	if (node != nullptr)
+		return true;
+	else return false;
 }
 
-template<typename T>
-void BinaryTree<T>::ost(std::ostream& rez, Node<T> *data)
+template<typename T> 
+void BinaryTree<T>::reading(const std::string file_name)
 {
-	if (data == NULL)
+	std::ifstream fin(file_name);
+	T temp;
+	fin >> temp;
+	while (fin)
 	{
-		return 0;
+		insert(temp);
+		fin >> temp;
 	}
-	else
+	fin.close();
+}
+
+template<typename T> 
+void outfile(Node<T> *node, ostream& ost)
+{
+	if (node != nullptr)
 	{
-		ost(rez, data->left);
-		ost(rez, data->right);
+		outfile(node->left, ost);
+		ost << node->data << " ";
+		outfile(node->right, ost);
 	}
+}
+
+template<typename T> 
+void BinaryTree<T>::writing(const std::string file_name)
+{
+	std::ofstream fout(file_name);
+	output(fout, root);
+	fout.close();
 }
